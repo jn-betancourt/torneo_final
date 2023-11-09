@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -29,6 +30,8 @@ public class Torneo {
     private final CaracterTorneo caracter;
     // RQ1: genero incluido en el torneo
     private final GeneroTorneo generoTorneo;
+    // RQ2: registro de jueces
+    private Collection<Juez> jueces;
 
     public Torneo(String nombre, LocalDate fechaInicio,
             LocalDate fechaInicioInscripciones,
@@ -59,6 +62,8 @@ public class Torneo {
         this.caracter = Objects.requireNonNull(caracter,"El carácter del torneo es requerido");
         // RQ1: inicializar nueva propiedad 'genero'
         this.generoTorneo = genero;
+        // RQ2: inicializar nueva propiedad 'Jueces'
+        this.jueces = new ArrayList<>();
     }
 
     public String getNombre() {
@@ -99,6 +104,10 @@ public class Torneo {
 
     public GeneroTorneo getGeneroTorneo() {
         return generoTorneo;
+    }
+
+    public Collection<Juez> getJueces() {
+        return jueces;
     }
 
     public void setFechaInicio(LocalDate fechaInicio) {
@@ -142,6 +151,25 @@ public class Torneo {
     */
     private void validarGenero(Participante participante){
         ASSERTION.assertion(generoTorneo.validarGenero(participante), "El genero de un jugador no coincide con el torneo");
+    }
+    
+    /*
+     * RQ2: registrar juez al torneo
+     */
+    public void registrarJuez(Juez juez){
+        validarJuezNoExiste(juez);// JUEZ NO DUPLICADO
+        validarInscripciopnesAbiertas();// EL TORNEO TODAVIA PERMITE INSCRIPCIONES
+
+        jueces.add(juez);
+    }
+
+    /*
+     * RQ2: Validar juez no dubplicado
+     */
+    private void validarJuezNoExiste(Juez juez){
+        Predicate<Juez> buscarJuez = j -> !j.equals(juez);
+        boolean condicion = jueces.stream().anyMatch(buscarJuez);
+        ASSERTION.assertion(condicion, "Juez duplicado");
     }
 
     /**
@@ -254,4 +282,5 @@ public class Torneo {
         var edadAlInicioTorneo = jugador.calcularEdad(fechaInicio);
         ASSERTION.assertion( limiteEdad == 0 || limiteEdad >= edadAlInicioTorneo , "No se pueden registrar jugadores que excedan el limite de edad del torneo"); 
     }
+
 }

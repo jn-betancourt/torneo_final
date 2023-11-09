@@ -7,8 +7,9 @@ public class Persona {
     private final String apellido;
     private final String email;
     private final String celular;
-    // nueva propiedad genero
-    // RQ1
+    /*
+     * RQ1 NUEVA PROPIEDAD GENERO
+     */
     private final Genero genero;
 
     public Persona(String nombre,String apellido,String email, String celular, Genero genero){
