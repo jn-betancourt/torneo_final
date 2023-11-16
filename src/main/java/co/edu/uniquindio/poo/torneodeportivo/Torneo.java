@@ -8,6 +8,7 @@
 package co.edu.uniquindio.poo.torneodeportivo;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -32,6 +33,8 @@ public class Torneo {
     private final GeneroTorneo generoTorneo;
     // RQ2: registro de jueces
     private Collection<Juez> jueces;
+    // RQ3: registro de enfrentamientos
+    private Collection<Enfrentamiento> enfrentamientos;
 
     public Torneo(String nombre, LocalDate fechaInicio,
             LocalDate fechaInicioInscripciones,
@@ -64,6 +67,8 @@ public class Torneo {
         this.generoTorneo = genero;
         // RQ2: inicializar nueva propiedad 'Jueces'
         this.jueces = new ArrayList<>();
+        // RQ3: inicializar nueva propiedad 'enfrentamientos'
+        this.enfrentamientos = new ArrayList<>();
     }
 
     public String getNombre() {
@@ -171,6 +176,18 @@ public class Torneo {
         boolean condicion = jueces.stream().anyMatch(buscarJuez);
         ASSERTION.assertion(condicion, "Juez duplicado");
     }
+
+
+
+    /*
+     * RQ3: Regsistrar un enfrentamiento
+     */
+    public void registrarEnfrentamiento(String ubicacion, LocalDate fecha, LocalTime hora, 
+        Participante rivalA, Participante rivalB,Collection<Juez> jueces){
+            Enfrentamiento nuevEnfrentamiento = new Enfrentamiento(ubicacion, fecha, hora, rivalA, rivalB, jueces);
+            enfrentamientos.add(nuevEnfrentamiento);
+    }
+
 
     /**
      * Valida que el participante sea acorde con el carácter del torneo.
