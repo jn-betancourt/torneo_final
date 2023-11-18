@@ -115,6 +115,10 @@ public class Torneo {
         return jueces;
     }
 
+    public Collection<Enfrentamiento> getEnfrentamientos() {
+        return enfrentamientos;
+    }
+
     public void setFechaInicio(LocalDate fechaInicio) {
         ASSERTION.assertion( fechaInicio != null , "La fecha de inicio es requerida");
         ASSERTION.assertion( ( fechaInicioInscripciones == null || fechaInicio.isAfter(fechaInicioInscripciones) ) &&
@@ -177,8 +181,6 @@ public class Torneo {
         ASSERTION.assertion(condicion, "Juez duplicado");
     }
 
-
-
     /*
      * RQ3: Regsistrar un enfrentamiento
      */
@@ -187,8 +189,7 @@ public class Torneo {
             Enfrentamiento nuevEnfrentamiento = new Enfrentamiento(ubicacion, fecha, hora, rivalA, rivalB, jueces);
             enfrentamientos.add(nuevEnfrentamiento);
     }
-
-
+    
     /**
      * Valida que el participante sea acorde con el carácter del torneo.
      * @param participante Participante a ser registrado
