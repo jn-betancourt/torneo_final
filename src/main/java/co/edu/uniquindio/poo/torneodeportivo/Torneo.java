@@ -176,8 +176,8 @@ public class Torneo {
      * RQ2: Validar juez no dubplicado
      */
     private void validarJuezNoExiste(Juez juez){
-        Predicate<Juez> buscarJuez = j -> !j.equals(juez);
-        boolean condicion = jueces.stream().anyMatch(buscarJuez);
+        Predicate<Juez> buscarJuez = j -> j.equals(juez);
+        boolean condicion = !jueces.stream().anyMatch(buscarJuez);
         ASSERTION.assertion(condicion, "Juez duplicado");
     }
 
