@@ -7,21 +7,37 @@
  */
 package co.edu.uniquindio.poo.torneodeportivo;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedList;
 import java.util.Optional;
 import java.util.function.Predicate;
 
 import static co.edu.uniquindio.poo.util.AssertionUtil.ASSERTION;
 
-public record Equipo(String nombre,Persona representante,Collection<Jugador> jugadores) implements Participante {
-    public Equipo{
+public class Equipo implements Participante {
+
+    private String nombre;
+    private Persona representante;
+    private Collection<Jugador> jugadores;
+    // RQ6: numero de victorias, derrotas y/o empates
+    private int victorias = 0;
+    private int derrotas = 0;
+    private int empates = 0;
+
+    public Equipo(String nombre, Persona representante, Collection<Jugador> jugadores){
         ASSERTION.assertion( nombre != null && !nombre.isBlank() , "El nombre es requerido");
         ASSERTION.assertion( representante != null , "El representante es requerido");
+        this.nombre = nombre;
+        this.representante = representante;
+        this.jugadores = jugadores;
     }
 
-    public Equipo(String nombre,Persona representante){
-        this(nombre,representante,new LinkedList<>());
+    public Equipo(String nombre, Persona representante){
+        ASSERTION.assertion( nombre != null && !nombre.isBlank() , "El nombre es requerido");
+        ASSERTION.assertion( representante != null , "El representante es requerido");
+        this.nombre = nombre;
+        this.representante = representante;
+        this.jugadores = new ArrayList<>();
     }
 
     /**
@@ -53,8 +69,56 @@ public record Equipo(String nombre,Persona representante,Collection<Jugador> jug
         ASSERTION.assertion( !existeJugador,"El jugador ya esta registrado");
     }
 
+    /*
+     * Control de las variables
+     * con las que se determinara 
+     * el orden del requisito RQ6
+     */
+    public void sumarVictoria(){
+        this.victorias += 1;
+    }
+    public void sumarDerrota(){
+        this.derrotas += 1;
+    }
+    public void sumarEmpate(){
+        this.empates += 1;
+    }
+
     @Override
     public String getNombreCompleto() {
         return nombre;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public Persona getRepresentante() {
+        return representante;
+    }
+
+    public void setRepresentante(Persona representante) {
+        this.representante = representante;
+    }
+
+    public Collection<Jugador> getJugadores() {
+        return jugadores;
+    }
+
+    public int getVictorias() {
+        return victorias;
+    }
+
+    public int getDerrotas() {
+        return derrotas;
+    }
+
+    public int getEmpates() {
+        return empates;
+    }
+
 }

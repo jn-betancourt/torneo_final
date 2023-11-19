@@ -33,6 +33,47 @@ public class Enfrentamiento{
         this.estado = EstadoEnfrentamiento.PENDIENTE;
     }
 
+    public void aplazarEnfrentamiento(LocalDate nuevaFecha, LocalTime nuevaHora){
+        // verificar fecha mayor a la actual
+        ASSERTION.assertion(
+            fecha.isAfter(nuevaFecha),
+            "La fecha debe ser mayor a la actual"
+        );
+        // verificar hora mayor a la actual
+        ASSERTION.assertion(
+            hora.isAfter(nuevaHora),
+            "La fecha debe ser mayor a la actual"
+        );
+        // cambiar los valores de las variables
+        setFecha(nuevaFecha);
+        setHora(nuevaHora);
+        setEstado(EstadoEnfrentamiento.APLAZADO);
+    }
+
+    public void iniciarEnfrentamiento(){
+        //fecha y hora de inicio
+        //son las actuales
+        ASSERTION.assertion(
+            LocalDate.now().equals(fecha),
+            "La fecha no se cumple"
+        );
+        ASSERTION.assertion(
+            LocalTime.now().equals(hora),
+            "La hora no se cumple"
+        );
+        setEstado(EstadoEnfrentamiento.EN_JUEGO);
+    }
+
+    public void finalizarEnfrentamiento(){
+        // verificar que la hora sea mayor
+        ASSERTION.assertion(
+            hora.isBefore(LocalTime.now()),
+            "La hora no se cumple" 
+        );
+        setEstado(EstadoEnfrentamiento.FINALIZADO);
+        resultado.determinarGanador();
+    }
+
     public String getUbicacion() {
         return ubicacion;
     }
@@ -73,8 +114,7 @@ public class Enfrentamiento{
         this.hora = hora;
     }
 
-    public void setEstado(EstadoEnfrentamiento estado) {
+    private void setEstado(EstadoEnfrentamiento estado){
         this.estado = estado;
     }
-    
 }

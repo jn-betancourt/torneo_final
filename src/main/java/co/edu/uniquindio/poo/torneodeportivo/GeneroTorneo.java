@@ -9,7 +9,7 @@ public enum GeneroTorneo {
             // Si participante es un equipo valida jugadores
             if(participante instanceof Equipo){
                 Predicate<Jugador> generoJugador = j->!j.getGenero().equals(Genero.MASCULINO);
-                condicion = ((Equipo)participante).jugadores().stream().anyMatch(generoJugador);
+                condicion = ((Equipo)participante).getJugadores().stream().anyMatch(generoJugador);
             }else{
                 // Valida un jugador
                 condicion = ((Jugador)participante).getGenero().equals(Genero.MASCULINO);
@@ -23,7 +23,7 @@ public enum GeneroTorneo {
             // Si participante es un equipo valida jugadores
             if(participante instanceof Equipo){
                 Predicate<Jugador> generoJugador = j->!j.getGenero().equals(Genero.FEMENINO);
-                condicion = ((Equipo)participante).jugadores().stream().anyMatch(generoJugador);
+                condicion = ((Equipo)participante).getJugadores().stream().anyMatch(generoJugador);
             }else{
                 // Valida un jugador
                 condicion = ((Jugador)participante).getGenero().equals(Genero.FEMENINO);
