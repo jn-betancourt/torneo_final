@@ -190,6 +190,37 @@ public class Torneo {
             enfrentamientos.add(nuevEnfrentamiento);
     }
     
+    /*
+     * RQ4: devolver listado de enfrentamiento
+     * por nombre de participante
+     */
+    public Optional<Collection<Enfrentamiento>> listarEnfrentamientosPorNombre(String nombre){
+        /*
+         * buscar enfrentamiento que contenga un participante
+         * con el nombre dado
+         */
+        Predicate<Enfrentamiento> enfrentamiento = e-> e.getRivalA().getNombreCompleto().equals(nombre) || e.getRivalB().getNombreCompleto().equals(nombre);
+        Collection<Enfrentamiento> enfrentamientosEncontrados = enfrentamientos.stream().filter(enfrentamiento).toList();
+        return Optional.of(enfrentamientosEncontrados);
+    }
+
+    /*
+     * RQ5: devolver listado de enfrentamiento
+     * por licencia de Juez
+     */
+    public Optional<Collection<Enfrentamiento>> listarEnfrentamientosPorNumeroLicencia(int numeroLicencia){
+        /*
+         * buscar enfrentamiento que contenga un juez
+         * con el numero dado
+         */
+        Predicate<Juez> juezEncontrado =  j->j.licencia()==numeroLicencia;
+        Collection<Enfrentamiento> enfrentamientosEncontrados = enfrentamientos.stream().filter(e->{
+            Optional<Juez> juez = e.getJueces().stream().filter(juezEncontrado).findAny();
+            return juez.isPresent();
+        }).toList();
+        return Optional.of(enfrentamientosEncontrados);
+    }
+    
     /**
      * Valida que el participante sea acorde con el carácter del torneo.
      * @param participante Participante a ser registrado
