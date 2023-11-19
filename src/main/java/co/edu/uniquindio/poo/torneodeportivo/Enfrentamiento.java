@@ -10,13 +10,13 @@ public class Enfrentamiento{
     private String ubicacion;
     private LocalDate fecha;
     private LocalTime hora;
-    private Participante rivalA;
-    private Participante rivalB;
+    private Equipo rivalA;
+    private Equipo rivalB;
     private Collection<Juez> jueces;
     private Resultado resultado;
     private EstadoEnfrentamiento estado;
 
-    public Enfrentamiento(String ubicacion, LocalDate fecha, LocalTime hora, Participante rivalA, Participante rivalB,Collection<Juez> jueces) {
+    public Enfrentamiento(String ubicacion, LocalDate fecha, LocalTime hora, Equipo rivalA, Equipo rivalB,Collection<Juez> jueces) {
 
         ASSERTION.assertion(!ubicacion.isBlank(), "Ubicacion requerida");
         ASSERTION.assertion(fecha!=null, "Fecha requerida");
@@ -31,6 +31,7 @@ public class Enfrentamiento{
         this.rivalB = rivalB;
         this.jueces = jueces;
         this.estado = EstadoEnfrentamiento.PENDIENTE;
+        this.resultado = new Resultado(rivalA, rivalB);
     }
 
     public void aplazarEnfrentamiento(LocalDate nuevaFecha, LocalTime nuevaHora){
@@ -56,10 +57,6 @@ public class Enfrentamiento{
         ASSERTION.assertion(
             LocalDate.now().equals(fecha),
             "La fecha no se cumple"
-        );
-        ASSERTION.assertion(
-            LocalTime.now().equals(hora),
-            "La hora no se cumple"
         );
         setEstado(EstadoEnfrentamiento.EN_JUEGO);
     }
