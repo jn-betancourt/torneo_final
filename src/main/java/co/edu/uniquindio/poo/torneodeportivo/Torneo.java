@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
 import static co.edu.uniquindio.poo.util.AssertionUtil.ASSERTION;
 
 public class Torneo {
@@ -227,10 +229,12 @@ public class Torneo {
      * RQ6: ordenar por mayor victorias
     */
     public Collection<Equipo> equiposOrdenadosMayorVicotrias(){
+        List<Equipo> equipos = new ArrayList<>();
         // Castear una lista de equipos
-        List<Equipo> equipos = participantes.stream().filter(e->e instanceof Equipo).map(e->{
-            return (Equipo)e;
-        }).toList();
+        equipos = participantes.stream().filter(e-> e instanceof Equipo).map(e->{
+            Equipo equipo = (Equipo)e;
+            return equipo;
+        }).collect(Collectors.toList());
         // Ordenarla bajo algun criterio
         Collections.sort(equipos, Comparator.comparingInt(Equipo::getVictorias));
         // que vaya de mayor a menor
@@ -241,10 +245,12 @@ public class Torneo {
      * RQ6: ordenar por mayor derrotas
     */
     public Collection<Equipo> equiposOrdenadosMayorDerrotas(){
+        List<Equipo> equipos = new ArrayList<>();
         // Castear una lista de equipos
-        List<Equipo> equipos = participantes.stream().filter(e->e instanceof Equipo).map(e->{
-            return (Equipo)e;
-        }).toList();
+        equipos = participantes.stream().filter(e-> e instanceof Equipo).map(e->{
+            Equipo equipo = (Equipo)e;
+            return equipo;
+        }).collect(Collectors.toList());
         // Ordenarla bajo algun criterio
         Collections.sort(equipos, Comparator.comparingInt(Equipo::getDerrotas));
         // que vaya de mayor a menor
@@ -255,10 +261,12 @@ public class Torneo {
      * RQ6: ordenar por mayor Empates
     */
     public Collection<Equipo> equiposOrdenadosMayorEmpates(){
+        List<Equipo> equipos = new ArrayList<>();
         // Castear una lista de equipos
-        List<Equipo> equipos = participantes.stream().filter(e->e instanceof Equipo).map(e->{
-            return (Equipo)e;
-        }).toList();
+        equipos = participantes.stream().filter(e-> e instanceof Equipo).map(e->{
+            Equipo equipo = (Equipo)e;
+            return equipo;
+        }).collect(Collectors.toList());
         // Ordenarla bajo algun criterio
         Collections.sort(equipos, Comparator.comparingInt(Equipo::getEmpates));
         // que vaya de mayor a menor
@@ -341,7 +349,7 @@ public class Torneo {
          * Validar genero jugador RQ1
          */
         if (generoTorneo != GeneroTorneo.MIXTO){
-            validarGenero(jugador);
+           validarGenero(jugador);
         }
         equipo.registrarJugador(jugador);
     }

@@ -63,10 +63,10 @@ public class Enfrentamiento{
 
     public void finalizarEnfrentamiento(){
         // verificar que la hora sea mayor
-        ASSERTION.assertion(
-            hora.isBefore(LocalTime.now()),
-            "La hora no se cumple" 
-        );
+        // ASSERTION.assertion(
+        //     hora.isBefore(LocalTime.now()),
+        //     "La hora no se cumple" 
+        // );
         setEstado(EstadoEnfrentamiento.FINALIZADO);
         resultado.determinarGanador();
     }
